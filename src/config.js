@@ -13,7 +13,8 @@ const baseConfig = {
   FIREBASE_DATABASE_URL: "https://expens-9353e.firebaseio.com",
   FIREBASE_PROJECTID: "expens-9353e",
   FIREBASE_STORAGE_BUCKET: "expens-9353e.appspot.com",
-  FIREBASE_MESSAGE_SENDERID: "346046868999"
+  FIREBASE_MESSAGE_SENDERID: "346046868999",
+  FIREBASE_APP_ID: "1:346046868999:web:192ffd128363c96b32c4a2"
 };
 const configPresets = {
   production: {

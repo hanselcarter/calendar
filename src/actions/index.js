@@ -1,1 +1,1 @@
-// export * from "./firebaseActions";
+export * from "./firebase";
