@@ -1,0 +1,1 @@
+export const CLEAN_REDUCER = "CLEAN_REDUCER";

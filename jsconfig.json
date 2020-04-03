@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "target": "esnext",
+    "baseUrl": "./",
+    "paths": {
+      "Containers": ["src/containers"],
+      "Containers/*": ["src/containers/*"],
+      "Components/*": ["src/components/*"],
+      "Actions": ["src/actions"],
+      "Actions/*": ["src/actions/*"],
+      "calendarReduxHooks": ["src/calendarReduxHooks"],
+      "Assets/*": ["assets/*"]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "public",
+    "webpack",
+    "functions",
+    "firedock_prototype",
+    "build",
+    "assets"
+  ],
+  "include": ["./src/**/*", "./tests/**/*"]
+}
