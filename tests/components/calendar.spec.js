@@ -1,7 +1,7 @@
 import { shallow } from "enzyme";
 import React from "react";
 
-import Calendar from "Components/calendar";
+import Calendar from "Components/Calendar";
 
 describe("<Calendar/>", () => {
   it("something", () => {

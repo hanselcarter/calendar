@@ -6,7 +6,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import ReduxPromise from "redux-promise";
 import ReduxThunk from "redux-thunk";
 import Reducers from "./reducers";
-import AppRouter from "./components/routes/appRoutes";
+import AppRouter from "./components/routes/AppRoutes";
 import history from "./history";
 
 export const store = createStore(
