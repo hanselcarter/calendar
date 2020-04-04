@@ -49,7 +49,7 @@ const Calendar = () => {
           key={clonedDate}
           date={clonedDate.clone()}
           month={month}
-          select={(day) => select(day)}
+          select={select}
           selected={selected}
         />
       );
