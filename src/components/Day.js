@@ -82,7 +82,7 @@ const Day = ({ day, select, selected }) => {
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   box: {
     padding: "11px",
     height: "100px",
