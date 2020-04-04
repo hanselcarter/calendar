@@ -7,7 +7,7 @@ const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const SingleDay = ({ day }) => (
   <Grid item xs={1}>
-    <Typography> {day}</Typography>
+    <Typography align="center"> {day}</Typography>
   </Grid>
 );
 
