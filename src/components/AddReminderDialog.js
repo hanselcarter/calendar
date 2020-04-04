@@ -8,7 +8,6 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import Grid from "@material-ui/core/Grid";
 import moment from "moment";
 import Typography from "@material-ui/core/Typography";
