@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 const Reminder = ({ color = "red" }) => {
   const classes = useStyles();
   return (
-    <Grid container className={classes[color]}>
+    <Grid container item xs={12} className={classes[color]}>
       <Tooltip title="Click me for more details">
         <Typography variant="caption">reminder</Typography>
       </Tooltip>

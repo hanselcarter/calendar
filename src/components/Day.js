@@ -1,8 +1,10 @@
 import React from "react";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
+import Reminder from "./Reminder";
 
 const Day = ({ day, select, selected }) => {
   const { date, isCurrentMonth, isToday, number } = day;
@@ -29,7 +31,17 @@ const Day = ({ day, select, selected }) => {
       }
       onClick={() => select(day)}
     >
-      <Typography>{number}</Typography>
+      <Grid container>
+        <Grid item xs={12}>
+          <Typography>{number}</Typography>
+        </Grid>
+        <Reminder />
+        <Reminder />
+        <Reminder />
+        <Reminder />
+        <Reminder />
+        <Reminder />
+      </Grid>
     </Box>
   );
 };
@@ -37,30 +49,22 @@ const Day = ({ day, select, selected }) => {
 const useStyles = makeStyles((theme) => ({
   box: {
     padding: "11px",
-    alignSelf: "stretch",
-    maxHeight: "100px",
+    height: "100px",
     width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-around",
+    overflowY: "scroll",
   },
   boxToday: {
     padding: "11px",
-    alignSelf: "stretch",
-    maxHeight: "100px",
+    height: "100px",
     width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-around",
+    overflowY: "scroll",
   },
   boxMonth: {
     padding: "11px",
     alignSelf: "stretch",
-    maxHeight: "100px",
+    height: "100px",
     width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-around",
+    overflowY: "scroll",
   },
 }));
 
