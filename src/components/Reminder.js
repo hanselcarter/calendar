@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#ffcdd2",
     maxHeight: "20px",
     marginBottom: "2px",
+    cursor: "pointer",
   },
 }));
 
