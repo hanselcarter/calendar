@@ -11,6 +11,12 @@ import DatePicker from "react-datepicker";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+
+const colors = ["green", "red", "yellow"];
 
 const ReminderDialog = ({
   open,
@@ -19,12 +25,16 @@ const ReminderDialog = ({
   initialDate,
   closeButtonLabel,
   actionButtonLabel,
+  predefinedColor,
+  handleAlternativeButtonLabelButtonClick,
+  alternativeButtonLabel,
 }) => {
   const classes = useStyles();
 
   const [date, setDate] = React.useState(initialDate.toDate());
   const [description, setDescription] = React.useState("");
   const [city, setCity] = React.useState("");
+  const [color, setColor] = React.useState(predefinedColor || colors[0]);
 
   const handleDatePickerChange = (date) => {
     setDate(date);
@@ -54,9 +64,16 @@ const ReminderDialog = ({
         date: date.toString(),
         description,
         city,
+        color,
       };
       handleActionButton(reminder);
     }
+  };
+
+  const handleChangeColor = (e) => {
+    e.preventDefault();
+    const color = e.target.value;
+    setColor(color);
   };
 
   return (
@@ -75,7 +92,7 @@ const ReminderDialog = ({
           autoFocus
           margin="dense"
           id="description"
-          label="description"
+          label="Description"
           type="email"
           fullWidth
           inputProps={{ maxLength: 30 }}
@@ -103,16 +120,52 @@ const ReminderDialog = ({
               showTimeSelect
             />
           </Grid>
+          <Grid item xs={12}>
+            <FormControl className={classes.formControl}>
+              <InputLabel
+                id="calendar-input-label"
+                className={classes[`${color}MenuItem`]}
+              >
+                Color
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="calendar-simple-select"
+                value={color}
+                onChange={handleChangeColor}
+              >
+                {colors.map((color) => (
+                  <MenuItem
+                    key={color}
+                    value={color}
+                    className={classes[`${color}MenuItem`]}
+                  >
+                    {color}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} color="primary">
+        <Button onClick={handleClose} color="primary" id="close-button">
           {closeButtonLabel}
         </Button>
+        {alternativeButtonLabel && handleAlternativeButtonLabelButtonClick ? (
+          <Button
+            onClick={handleAlternativeButtonLabelButtonClick}
+            color="primary"
+            id="alternative-button"
+          >
+            {alternativeButtonLabel}
+          </Button>
+        ) : null}
         <Button
           onClick={handleActionButtonClick}
           color="primary"
           disabled={!city || !description}
+          id="action-button"
         >
           {actionButtonLabel}
         </Button>
@@ -128,6 +181,19 @@ const useStyles = makeStyles((theme) => ({
   gridContainer: {
     padding: theme.spacing(2),
   },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  redMenuItem: {
+    color: "#ffcdd2 !important",
+  },
+  greenMenuItem: {
+    color: "#a7ffeb !important",
+  },
+  yellowMenuItem: {
+    color: "#fff9c4 !important",
+  },
 }));
 
 ReminderDialog.propTypes = {
@@ -137,6 +203,7 @@ ReminderDialog.propTypes = {
   initialDate: PropTypes.object.isRequired,
   closeButtonLabel: PropTypes.string.isRequired,
   actionButtonLabel: PropTypes.string.isRequired,
+  predefinedColor: PropTypes.string,
 };
 
 export default ReminderDialog;
