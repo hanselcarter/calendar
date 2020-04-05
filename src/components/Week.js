@@ -1,8 +1,9 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Day from "./Day";
+import PropTypes from "prop-types";
 
-const Week = ({ date, month, selected, select }) => {
+const Week = ({ date, month, selected, select, reminders }) => {
   const days = [];
   let clonedDate = date.clone();
 
@@ -17,7 +18,13 @@ const Week = ({ date, month, selected, select }) => {
 
     days.push(
       <Grid container item xs={1} key={i}>
-        <Day key={i} day={day} selected={selected} select={select} />
+        <Day
+          key={i}
+          day={day}
+          selected={selected}
+          select={select}
+          reminders={reminders}
+        />
       </Grid>
     );
 
@@ -30,6 +37,14 @@ const Week = ({ date, month, selected, select }) => {
       {days}
     </Grid>
   );
+};
+
+Week.propTypes = {
+  reminders: PropTypes.array.isRequired,
+  select: PropTypes.func,
+  selected: PropTypes.object,
+  month: PropTypes.object,
+  date: PropTypes.object,
 };
 
 export default Week;

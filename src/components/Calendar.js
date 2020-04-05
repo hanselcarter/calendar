@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Month from "./Month";
 import Week from "./Week";
+import { startSetReminders } from "Actions/index";
 import { useDispatch, useSelector } from "calendarReduxHooks";
 
 const initialState = {
@@ -15,8 +16,19 @@ const initialState = {
 const Calendar = () => {
   const [month, setMonth] = React.useState(initialState.month);
   const [selected, setSelected] = React.useState(initialState.selected);
-  const state = useSelector((state) => state);
-  console.log(state);
+  const { reminders, isLoading } = useSelector(
+    (state) => state.remindersReducer
+  );
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    fetchReminders();
+  }, [fetchReminders]);
+
+  const fetchReminders = async () => {
+    console.log("fetchReminders");
+    await dispatch(startSetReminders());
+  };
 
   const previous = () => {
     const previousMonth = month.clone().subtract(1, "month");
@@ -54,6 +66,7 @@ const Calendar = () => {
           month={month}
           select={select}
           selected={selected}
+          reminders={reminders}
         />
       );
 
