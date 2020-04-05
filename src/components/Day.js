@@ -3,6 +3,7 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
+import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
@@ -11,6 +12,7 @@ import ReminderDialog from "./ReminderDialog";
 import { useDispatch } from "calendarReduxHooks";
 import { startAddReminder, startDeleteReminder } from "Actions/index";
 import moment from "moment";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const Day = ({ day, select, selected, reminders }) => {
   const { date, isCurrentMonth, isToday, number } = day;
@@ -37,22 +39,42 @@ const Day = ({ day, select, selected, reminders }) => {
     handleClose();
   };
 
-  const remindersFotThisDate = reminders.filter((reminder) => {
-    const dateObj = new Date(reminder.date);
-    const reminderDate = moment(dateObj);
-    const clonedDayDate = date.clone();
+  const deleteAllRemindersForCurrentDate = async () => {
+    try {
+      const remindersToDelete = filterRemindersForCurrentDate();
+      remindersToDelete.reverse();
 
-    return (
-      reminderDate
-        .startOf("day")
-        .toDate()
-        .toString() ==
-      clonedDayDate
-        .startOf("day")
-        .toDate()
-        .toString()
-    );
-  });
+      await Promise.all(
+        remindersToDelete.map(async (reminderToDelete) => {
+          await dispatch(startDeleteReminder(reminderToDelete.uid));
+        })
+      );
+    } catch (err) {
+      console.log("sorry, something unexpected happened");
+    }
+  };
+
+  const filterRemindersForCurrentDate = () => {
+    const remindersFotCurrentDate = reminders.filter((reminder) => {
+      const dateObj = new Date(reminder.date);
+      const reminderDate = moment(dateObj);
+      const clonedDayDate = date.clone();
+
+      return (
+        reminderDate
+          .startOf("day")
+          .toDate()
+          .toString() ==
+        clonedDayDate
+          .startOf("day")
+          .toDate()
+          .toString()
+      );
+    });
+    return remindersFotCurrentDate;
+  };
+
+  const remindersFotThisDate = filterRemindersForCurrentDate();
 
   return (
     <>
@@ -78,18 +100,34 @@ const Day = ({ day, select, selected, reminders }) => {
       >
         <Grid container>
           <Grid container item xs={12}>
-            <Grid item xs={8}>
+            <Grid item xs={5}>
               <Typography>{number}</Typography>
             </Grid>
             <Grid item xs={4}>
-              <IconButton
-                aria-label="add-reminder"
-                size="small"
-                className={classes.addButton}
-                onClick={handleClickOpen}
-              >
-                <AddCircleIcon />
-              </IconButton>
+              <Tooltip title="Delete all reminders for this date">
+                <IconButton
+                  id="delete-all-reminder"
+                  aria-label="add-reminder"
+                  size="small"
+                  className={classes.addButton}
+                  onClick={deleteAllRemindersForCurrentDate}
+                >
+                  <RemoveCircleIcon />
+                </IconButton>
+              </Tooltip>
+            </Grid>
+            <Grid item xs={3}>
+              <Tooltip title="Add reminder">
+                <IconButton
+                  id="add-reminder"
+                  aria-label="add-reminder"
+                  size="small"
+                  className={classes.addButton}
+                  onClick={handleClickOpen}
+                >
+                  <AddCircleIcon />
+                </IconButton>
+              </Tooltip>
             </Grid>
           </Grid>
           {remindersFotThisDate.map((reminder) => (
@@ -131,6 +169,7 @@ const useStyles = makeStyles(() => ({
   },
   addButton: {
     marginTop: "-4px",
+    paddingLeft: "2px",
   },
 }));
 

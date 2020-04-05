@@ -42,7 +42,7 @@ export default (state = INITIAL_STATE, action) => {
         ],
       };
     case DELETE_ALL_REMINDERS:
-      return { ...state, reminders: [], isLoading: true };
+      return { ...state, reminders: [] };
     default:
       return state;
   }

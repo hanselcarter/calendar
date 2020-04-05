@@ -4,6 +4,7 @@ import {
   ADD_REMINDER,
   DELETE_REMINDER,
   UPDATE_REMINDER,
+  DELETE_ALL_REMINDERS,
 } from "./types";
 
 export const setReminders = (reminders = []) => ({
@@ -33,6 +34,10 @@ export const updateReminder = (reminder = {}, index) => ({
     index,
     reminder,
   },
+});
+
+export const deleteAllReminders = () => ({
+  type: DELETE_ALL_REMINDERS,
 });
 
 export const startSetReminders = () => {
@@ -65,6 +70,7 @@ export const startAddReminder = (reminder) => {
 export const startDeleteReminder = (reminderUid) => {
   return async (dispatch, getState) => {
     const { reminders = [] } = getState().remindersReducer;
+
     const reminderToRemoveIndex = reminders.findIndex(
       (reminder) => reminder.uid === reminderUid
     );
