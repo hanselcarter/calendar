@@ -9,7 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Reminder from "./Reminder";
 import AddReminderDialog from "./AddReminderDialog";
 import { useDispatch } from "calendarReduxHooks";
-import { startAddReminder } from "Actions/index";
+import { startAddReminder, startDeleteReminder } from "Actions/index";
 
 const Day = ({ day, select, selected, reminders }) => {
   const { date, isCurrentMonth, isToday, number } = day;
