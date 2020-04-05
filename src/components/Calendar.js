@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Month from "./Month";
 import Week from "./Week";
+import { useDispatch, useSelector } from "calendarReduxHooks";
 
 const initialState = {
   month: moment(),
@@ -14,6 +15,8 @@ const initialState = {
 const Calendar = () => {
   const [month, setMonth] = React.useState(initialState.month);
   const [selected, setSelected] = React.useState(initialState.selected);
+  const state = useSelector((state) => state);
+  console.log(state);
 
   const previous = () => {
     const previousMonth = month.clone().subtract(1, "month");
