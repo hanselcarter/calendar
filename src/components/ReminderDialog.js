@@ -28,12 +28,14 @@ const ReminderDialog = ({
   predefinedColor,
   handleAlternativeButtonLabelButtonClick,
   alternativeButtonLabel,
+  predefinedDescription = "",
+  predefinedCity = "",
 }) => {
   const classes = useStyles();
 
   const [date, setDate] = React.useState(initialDate.toDate());
-  const [description, setDescription] = React.useState("");
-  const [city, setCity] = React.useState("");
+  const [description, setDescription] = React.useState(predefinedDescription);
+  const [city, setCity] = React.useState(predefinedCity);
   const [color, setColor] = React.useState(predefinedColor || colors[0]);
 
   const handleDatePickerChange = (date) => {
@@ -89,6 +91,7 @@ const ReminderDialog = ({
           only 15 characters max.
         </DialogContentText>
         <TextField
+          defaultValue={predefinedDescription}
           autoFocus
           margin="dense"
           id="description"
@@ -100,6 +103,7 @@ const ReminderDialog = ({
           autoComplete="off"
         />
         <TextField
+          defaultValue={predefinedCity}
           margin="dense"
           id="city"
           label="City"
@@ -204,6 +208,8 @@ ReminderDialog.propTypes = {
   closeButtonLabel: PropTypes.string.isRequired,
   actionButtonLabel: PropTypes.string.isRequired,
   predefinedColor: PropTypes.string,
+  predefinedDescription: PropTypes.string,
+  predefinedCity: PropTypes.string,
 };
 
 export default ReminderDialog;

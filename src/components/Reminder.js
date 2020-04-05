@@ -69,6 +69,9 @@ const Reminder = ({ reminder }) => {
         actionButtonLabel="EDIT"
         alternativeButtonLabel="DELETE"
         handleAlternativeButtonLabelButtonClick={deleteReminder}
+        predefinedDescription={reminder.description}
+        predefinedCity={reminder.city}
+        predefinedColor={reminder.color}
       />
     </>
   );
