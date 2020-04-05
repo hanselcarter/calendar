@@ -13,14 +13,6 @@
       "Assets/*": ["assets/*"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "public",
-    "webpack",
-    "functions",
-    "firedock_prototype",
-    "build",
-    "assets"
-  ],
+  "exclude": ["node_modules", "public", "webpack", "build", "assets"],
   "include": ["./src/**/*", "./tests/**/*"]
 }
