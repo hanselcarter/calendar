@@ -8,10 +8,15 @@ import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Reminder from "./Reminder";
 import AddReminderDialog from "./AddReminderDialog";
+import { useDispatch } from "calendarReduxHooks";
+import { startAddReminder } from "Actions/index";
 
-const Day = ({ day, select, selected }) => {
+const Day = ({ day, select, selected, reminders }) => {
   const { date, isCurrentMonth, isToday, number } = day;
+  console.log(reminders, "reminders");
   const classes = useStyles();
+  const dispatch = useDispatch();
+
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -22,8 +27,13 @@ const Day = ({ day, select, selected }) => {
     setOpen(false);
   };
 
-  const saveReminder = () => {
+  const saveReminder = async (reminder) => {
     console.log(date);
+    try {
+      await dispatch(startAddReminder(reminder));
+    } catch (err) {
+      console.log("sorry, something unexpected happened");
+    }
     handleClose();
   };
 
@@ -111,6 +121,7 @@ Day.propTypes = {
   day: PropTypes.object.isRequired,
   select: PropTypes.func,
   selected: PropTypes.object,
+  reminders: PropTypes.array,
 };
 
 export default Day;

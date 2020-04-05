@@ -17,10 +17,38 @@ const AddReminderDialog = ({ open, handleClose, save }) => {
   const classes = useStyles();
 
   const [date, setDate] = React.useState(moment().toDate());
+  const [description, setDescription] = React.useState("");
+  const [city, setCity] = React.useState("");
 
-  const handleChange = (date) => {
-    console.log(date);
+  const handleDatePickerChange = (date) => {
     setDate(date);
+  };
+
+  const handleDescriptionChange = (e) => {
+    e.preventDefault();
+    const text = e.target.value;
+
+    if (text.length > 0 && text.length <= 30) {
+      setDescription(text);
+    }
+  };
+
+  const handleCityChange = (e) => {
+    e.preventDefault();
+    const text = e.target.value;
+
+    if (text.length > 0 && text.length <= 10) {
+      setCity(text);
+    }
+  };
+
+  const handleSave = () => {
+    const reminder = {
+      date: date.toString(),
+      description,
+      city,
+    };
+    save(reminder);
   };
 
   return (
@@ -33,23 +61,26 @@ const AddReminderDialog = ({ open, handleClose, save }) => {
       <DialogContent>
         <DialogContentText>
           Remember description field will only allow 30 characters max and city
-          only 10 characters max.
+          only 15 characters max.
         </DialogContentText>
         <TextField
           autoFocus
           margin="dense"
           id="description"
-          label="Email Address"
+          label="description"
           type="email"
           fullWidth
+          inputProps={{ maxLength: 30 }}
+          onChange={handleDescriptionChange}
         />
         <TextField
-          autoFocus
           margin="dense"
           id="city"
           label="City"
           type="email"
           fullWidth
+          inputProps={{ maxLength: 15 }}
+          onChange={handleCityChange}
         />
         <Grid container className={classes.gridContainer}>
           <Grid item xs={2}>
@@ -58,7 +89,7 @@ const AddReminderDialog = ({ open, handleClose, save }) => {
           <Grid item xs={4}>
             <DatePicker
               selected={date}
-              onChange={handleChange}
+              onChange={handleDatePickerChange}
               showTimeSelect
             />
           </Grid>
@@ -68,7 +99,11 @@ const AddReminderDialog = ({ open, handleClose, save }) => {
         <Button onClick={handleClose} color="primary">
           Cancel
         </Button>
-        <Button onClick={save} color="primary">
+        <Button
+          onClick={handleSave}
+          color="primary"
+          disabled={!city && !description}
+        >
           Save
         </Button>
       </DialogActions>

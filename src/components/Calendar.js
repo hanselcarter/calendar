@@ -16,7 +16,9 @@ const initialState = {
 const Calendar = () => {
   const [month, setMonth] = React.useState(initialState.month);
   const [selected, setSelected] = React.useState(initialState.selected);
-  const reminders = useSelector((state) => state.remindersReducer);
+  const { reminders, isLoading } = useSelector(
+    (state) => state.remindersReducer
+  );
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -64,6 +66,7 @@ const Calendar = () => {
           month={month}
           select={select}
           selected={selected}
+          reminders={reminders}
         />
       );
 
