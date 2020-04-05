@@ -13,10 +13,10 @@ import moment from "moment";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
-const AddReminderDialog = ({ open, handleClose, save }) => {
+const AddReminderDialog = ({ open, handleClose, save, initialDate }) => {
   const classes = useStyles();
 
-  const [date, setDate] = React.useState(moment().toDate());
+  const [date, setDate] = React.useState(initialDate.toDate());
   const [description, setDescription] = React.useState("");
   const [city, setCity] = React.useState("");
 
@@ -28,7 +28,7 @@ const AddReminderDialog = ({ open, handleClose, save }) => {
     e.preventDefault();
     const text = e.target.value;
 
-    if (text.length > 0 && text.length <= 30) {
+    if (text.length <= 30) {
       setDescription(text);
     }
   };
@@ -37,18 +37,20 @@ const AddReminderDialog = ({ open, handleClose, save }) => {
     e.preventDefault();
     const text = e.target.value;
 
-    if (text.length > 0 && text.length <= 10) {
+    if (text.length <= 10) {
       setCity(text);
     }
   };
 
   const handleSave = () => {
-    const reminder = {
-      date: date.toString(),
-      description,
-      city,
-    };
-    save(reminder);
+    if (city && description) {
+      const reminder = {
+        date: date.toString(),
+        description,
+        city,
+      };
+      save(reminder);
+    }
   };
 
   return (
@@ -102,7 +104,7 @@ const AddReminderDialog = ({ open, handleClose, save }) => {
         <Button
           onClick={handleSave}
           color="primary"
-          disabled={!city && !description}
+          disabled={!city || !description}
         >
           Save
         </Button>
@@ -124,6 +126,7 @@ AddReminderDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   save: PropTypes.func.isRequired,
+  initialDate: PropTypes.object.isRequired,
 };
 
 export default AddReminderDialog;

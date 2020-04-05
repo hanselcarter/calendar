@@ -13,7 +13,7 @@ import { startAddReminder, startDeleteReminder } from "Actions/index";
 
 const Day = ({ day, select, selected, reminders }) => {
   const { date, isCurrentMonth, isToday, number } = day;
-  console.log(reminders, "reminders");
+  // console.log(reminders, "reminders");
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -28,7 +28,6 @@ const Day = ({ day, select, selected, reminders }) => {
   };
 
   const saveReminder = async (reminder) => {
-    console.log(date);
     try {
       await dispatch(startAddReminder(reminder));
     } catch (err) {
@@ -87,6 +86,7 @@ const Day = ({ day, select, selected, reminders }) => {
         open={open}
         handleClose={handleClose}
         save={saveReminder}
+        initialDate={date.clone()}
       />
     </>
   );
