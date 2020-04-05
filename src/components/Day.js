@@ -112,20 +112,20 @@ const Day = ({ day, select, selected, reminders }) => {
 const useStyles = makeStyles(() => ({
   box: {
     padding: "11px",
-    height: "100px",
+    height: "80px",
     width: "100%",
     overflowY: "scroll",
   },
   boxToday: {
     padding: "11px",
-    height: "100px",
+    height: "80px",
     width: "100%",
     overflowY: "scroll",
   },
   boxMonth: {
     padding: "11px",
     alignSelf: "stretch",
-    height: "100px",
+    height: "80px",
     width: "100%",
     overflowY: "scroll",
   },

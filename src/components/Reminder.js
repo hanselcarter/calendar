@@ -5,12 +5,14 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 
-const Reminder = ({ color = "red" }) => {
+const Reminder = ({ reminder }) => {
   const classes = useStyles();
   return (
-    <Grid container item xs={12} className={classes[color]}>
-      <Tooltip title="Click me for more details">
-        <Typography variant="caption">reminder</Typography>
+    <Grid container item xs={12} className={classes.red}>
+      <Tooltip title={reminder.description}>
+        <Typography variant="caption" noWrap>
+          {reminder.description}
+        </Typography>
       </Tooltip>
     </Grid>
   );
@@ -26,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 Reminder.propTypes = {
-  color: PropTypes.string,
+  reminder: PropTypes.object.isRequired,
 };
 
 export default Reminder;
