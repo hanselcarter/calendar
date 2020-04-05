@@ -1,5 +1,10 @@
 import { DB } from "./firebase";
-import { SET_REMINDERS, ADD_REMINDER, DELETE_REMINDER } from "./types";
+import {
+  SET_REMINDERS,
+  ADD_REMINDER,
+  DELETE_REMINDER,
+  UPDATE_REMINDER,
+} from "./types";
 
 export const setReminders = (reminders = []) => ({
   type: SET_REMINDERS,
@@ -19,6 +24,14 @@ export const deleteReminder = (index) => ({
   type: DELETE_REMINDER,
   payload: {
     index,
+  },
+});
+
+export const updateReminder = (reminder = {}, index) => ({
+  type: UPDATE_REMINDER,
+  payload: {
+    index,
+    reminder,
   },
 });
 
@@ -58,5 +71,20 @@ export const startDeleteReminder = (reminderUid) => {
     await DB.ref(`reminders/${reminderUid}`).remove();
 
     return dispatch(deleteReminder(reminderToRemoveIndex));
+  };
+};
+
+export const startEditReminder = (editedReminder) => {
+  return async (dispatch, getState) => {
+    const { reminders = [] } = getState().remindersReducer;
+    const reminderToUpdateIndex = reminders.findIndex(
+      (reminder) => reminder.uid === editedReminder.uid
+    );
+    const updates = {};
+    updates[`reminders/${editedReminder.uid}`] = editedReminder;
+
+    await DB.ref().update(updates);
+
+    return dispatch(updateReminder(editedReminder, reminderToUpdateIndex));
   };
 };
