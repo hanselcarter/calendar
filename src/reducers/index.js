@@ -1,17 +1,10 @@
 import { combineReducers } from "redux";
-import { CLEAN_REDUCER } from "../actions/types";
-// import userReducer from "./userReducer";
+import reminders from "./reminders";
 
-const rootReducer = combineReducers({
-  // userReducer,
-});
-
-const cleanupReducer = (state, action) => {
-  if (action.type === CLEAN_REDUCER) {
-    state = undefined;
-  }
+export default (state, action) => {
+  const rootReducer = combineReducers({
+    remindersReducer: reminders,
+  });
 
   return rootReducer(state, action);
 };
-
-export default cleanupReducer;
