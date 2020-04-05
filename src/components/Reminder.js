@@ -34,12 +34,12 @@ const Reminder = ({ reminder }) => {
   };
 
   const deleteReminder = async () => {
+    handleClose();
     try {
       await dispatch(startDeleteReminder(reminder.uid));
     } catch (err) {
       console.log("sorry, something unexpected happened");
     }
-    handleClose();
   };
 
   const dateObj = new Date(reminder.date);
