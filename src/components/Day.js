@@ -7,9 +7,10 @@ import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Reminder from "./Reminder";
-import AddReminderDialog from "./AddReminderDialog";
+import ReminderDialog from "./ReminderDialog";
 import { useDispatch } from "calendarReduxHooks";
 import { startAddReminder, startDeleteReminder } from "Actions/index";
+import moment from "moment";
 
 const Day = ({ day, select, selected, reminders }) => {
   const { date, isCurrentMonth, isToday, number } = day;
@@ -35,6 +36,23 @@ const Day = ({ day, select, selected, reminders }) => {
     }
     handleClose();
   };
+
+  const remindersFotThisDate = reminders.filter((reminder) => {
+    const dateObj = new Date(reminder.date);
+    const reminderDate = moment(dateObj);
+    const clonedDayDate = date.clone();
+
+    return (
+      reminderDate
+        .startOf("day")
+        .toDate()
+        .toString() ==
+      clonedDayDate
+        .startOf("day")
+        .toDate()
+        .toString()
+    );
+  });
 
   return (
     <>
@@ -74,19 +92,18 @@ const Day = ({ day, select, selected, reminders }) => {
               </IconButton>
             </Grid>
           </Grid>
-          <Reminder />
-          <Reminder />
-          <Reminder />
-          <Reminder />
-          <Reminder />
-          <Reminder />
+          {remindersFotThisDate.map((reminder) => (
+            <Reminder key={reminder.uid} reminder={reminder} />
+          ))}
         </Grid>
       </Box>
-      <AddReminderDialog
+      <ReminderDialog
         open={open}
         handleClose={handleClose}
-        save={saveReminder}
+        handleActionButton={saveReminder}
         initialDate={date.clone()}
+        closeButtonLabel="CANCEL"
+        actionButtonLabel="SAVE"
       />
     </>
   );

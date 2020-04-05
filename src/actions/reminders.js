@@ -43,9 +43,9 @@ export const startSetReminders = () => {
 
 export const startAddReminder = (reminder) => {
   return async (dispatch) => {
-    await DB.ref("reminders").push(reminder);
+    const snapshot = await DB.ref("reminders").push(reminder);
 
-    return dispatch(addReminder(reminder));
+    return dispatch(addReminder({ ...reminder, uid: snapshot.key }));
   };
 };
 

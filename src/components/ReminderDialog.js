@@ -9,11 +9,17 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
 import Grid from "@material-ui/core/Grid";
-import moment from "moment";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
-const AddReminderDialog = ({ open, handleClose, save, initialDate }) => {
+const ReminderDialog = ({
+  open,
+  handleClose,
+  handleActionButton,
+  initialDate,
+  closeButtonLabel,
+  actionButtonLabel,
+}) => {
   const classes = useStyles();
 
   const [date, setDate] = React.useState(initialDate.toDate());
@@ -42,14 +48,14 @@ const AddReminderDialog = ({ open, handleClose, save, initialDate }) => {
     }
   };
 
-  const handleSave = () => {
+  const handleActionButtonClick = () => {
     if (city && description) {
       const reminder = {
         date: date.toString(),
         description,
         city,
       };
-      save(reminder);
+      handleActionButton(reminder);
     }
   };
 
@@ -74,6 +80,7 @@ const AddReminderDialog = ({ open, handleClose, save, initialDate }) => {
           fullWidth
           inputProps={{ maxLength: 30 }}
           onChange={handleDescriptionChange}
+          autoComplete="off"
         />
         <TextField
           margin="dense"
@@ -83,6 +90,7 @@ const AddReminderDialog = ({ open, handleClose, save, initialDate }) => {
           fullWidth
           inputProps={{ maxLength: 15 }}
           onChange={handleCityChange}
+          autoComplete="off"
         />
         <Grid container className={classes.gridContainer}>
           <Grid item xs={2}>
@@ -99,14 +107,14 @@ const AddReminderDialog = ({ open, handleClose, save, initialDate }) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="primary">
-          Cancel
+          {closeButtonLabel}
         </Button>
         <Button
-          onClick={handleSave}
+          onClick={handleActionButtonClick}
           color="primary"
           disabled={!city || !description}
         >
-          Save
+          {actionButtonLabel}
         </Button>
       </DialogActions>
     </Dialog>
@@ -122,11 +130,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-AddReminderDialog.propTypes = {
+ReminderDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-  save: PropTypes.func.isRequired,
+  handleActionButton: PropTypes.func.isRequired,
   initialDate: PropTypes.object.isRequired,
+  closeButtonLabel: PropTypes.string.isRequired,
+  actionButtonLabel: PropTypes.string.isRequired,
 };
 
-export default AddReminderDialog;
+export default ReminderDialog;
