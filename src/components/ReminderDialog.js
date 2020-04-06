@@ -125,7 +125,7 @@ const ReminderDialog = ({
           Remember description field can only have a maximum of 30 characters.
         </DialogContentText>
         <TextField
-          defaultValue={predefinedDescription}
+          value={description}
           autoFocus
           margin="dense"
           id="description"
