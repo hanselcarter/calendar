@@ -7,6 +7,7 @@ import Month from "./Month";
 import Week from "./Week";
 import { startSetReminders } from "Actions/index";
 import { useDispatch, useSelector } from "calendarReduxHooks";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const initialState = {
   month: moment(),
@@ -78,11 +79,24 @@ const Calendar = () => {
     return weeks;
   };
 
+  if (isLoading) {
+    return (
+      <Grid
+        container
+        alignItems="center"
+        alignContent="center"
+        justify="center"
+      >
+        <CircularProgress color="secondary" />
+      </Grid>
+    );
+  }
+
   return (
-    <section className="calendar">
-      <header className="header">
+    <div>
+      <div>
         <Grid container alignItems="center" alignContent="center">
-          <Grid item xs={3}>
+          <Grid item xs={3} container>
             <Button onClick={previous}>Previous</Button>
           </Grid>
           <Grid item xs={3}>
@@ -93,9 +107,9 @@ const Calendar = () => {
           </Grid>
         </Grid>
         <DaysHeader />
-      </header>
+      </div>
       {renderWeeks()}
-    </section>
+    </div>
   );
 };
 
