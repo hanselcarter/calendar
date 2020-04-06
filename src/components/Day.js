@@ -100,7 +100,7 @@ const Day = ({ day, select, selected, reminders }) => {
         key={date.toString()}
         className={
           date.isSame(selected)
-            ? classes.boxToday
+            ? classes.boxSelected
             : isToday
             ? classes.boxToday
             : isCurrentMonth
@@ -115,17 +115,19 @@ const Day = ({ day, select, selected, reminders }) => {
               <Typography>{number}</Typography>
             </Grid>
             <Grid item xs={4}>
-              <Tooltip title="Delete all reminders for this date">
-                <IconButton
-                  id="delete-all-reminder"
-                  aria-label="add-reminder"
-                  size="small"
-                  className={classes.addButton}
-                  onClick={handleClickOpenDelete}
-                >
-                  <RemoveCircleIcon />
-                </IconButton>
-              </Tooltip>
+              {remindersFotThisDate.length > 0 ? (
+                <Tooltip title="Delete all reminders for this date">
+                  <IconButton
+                    id="delete-all-reminder"
+                    aria-label="add-reminder"
+                    size="small"
+                    className={classes.addButton}
+                    onClick={handleClickOpenDelete}
+                  >
+                    <RemoveCircleIcon />
+                  </IconButton>
+                </Tooltip>
+              ) : null}
             </Grid>
             <Grid item xs={3}>
               <Tooltip title="Add reminder">
@@ -169,12 +171,14 @@ const useStyles = makeStyles(() => ({
     height: "80px",
     width: "100%",
     overflowY: "scroll",
+    backgroundColor: "#e0e0e0",
   },
   boxToday: {
     padding: "11px",
     height: "80px",
     width: "100%",
     overflowY: "scroll",
+    backgroundColor: "#ede7f6",
   },
   boxMonth: {
     padding: "11px",
@@ -182,6 +186,13 @@ const useStyles = makeStyles(() => ({
     height: "80px",
     width: "100%",
     overflowY: "scroll",
+  },
+  boxSelected: {
+    padding: "11px",
+    height: "80px",
+    width: "100%",
+    overflowY: "scroll",
+    backgroundColor: "#e3f2fd",
   },
   addButton: {
     marginTop: "-4px",
