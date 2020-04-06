@@ -53,6 +53,13 @@ const ReminderDialog = ({
   const [description, setDescription] = React.useState(predefinedDescription);
   const [city, setCity] = React.useState(predefinedCity || cities[0]);
   const [color, setColor] = React.useState(predefinedColor || colors[0]);
+  const [weather, setWeather] = React.useState({
+    skies: "",
+    minTemp: "",
+    maxTemp: "",
+    temp: "",
+    feelsLike: "",
+  });
 
   React.useEffect(() => {
     if (open) {
@@ -61,7 +68,12 @@ const ReminderDialog = ({
   }, [open, city]);
 
   const weatherByCityName = async (cityToForecast) => {
-    await fetchForecastByCityName(cityToForecast);
+    try {
+      const weather = await fetchForecastByCityName(cityToForecast);
+      setWeather(weather);
+    } catch (err) {
+      console.log("something bad happened");
+    }
   };
 
   const handleDatePickerChange = (date) => {
@@ -182,17 +194,28 @@ const ReminderDialog = ({
             <Grid item xs={12}>
               <Typography>Weather in {city}</Typography>
             </Grid>
-            <Grid item xs={12}>
-              <Typography variant="caption">Skies:</Typography>
+            <Grid item xs={4}>
+              <Typography variant="caption">Skies: {weather.skies}</Typography>
             </Grid>
-            <Grid item xs={12}>
-              <Typography variant="caption">Max temperature: </Typography>
+            <Grid item xs={4}>
+              <Typography variant="caption">
+                Temperature: {weather.temp}
+              </Typography>
             </Grid>
-            <Grid item xs={12}>
-              <Typography variant="caption">Min temperature: </Typography>
+            <Grid item xs={4}>
+              <Typography variant="caption">
+                Max temperature: {weather.maxTemp}
+              </Typography>
             </Grid>
-            <Grid item xs={12}>
-              <Typography variant="caption">Feels like:</Typography>
+            <Grid item xs={4}>
+              <Typography variant="caption">
+                Min temperature: {weather.minTemp}
+              </Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography variant="caption">
+                Feels like: {weather.feelsLike}
+              </Typography>
             </Grid>
           </Grid>
         </Grid>
