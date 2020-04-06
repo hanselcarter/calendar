@@ -26,7 +26,6 @@ const Calendar = () => {
   }, [fetchReminders]);
 
   const fetchReminders = async () => {
-    console.log("fetchReminders");
     await dispatch(startSetReminders());
   };
 

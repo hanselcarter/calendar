@@ -15,8 +15,24 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import { fetchForecastByCityName } from "../services/forecast";
 
 const colors = ["green", "red", "yellow"];
+const cities = [
+  "London",
+  "Tegucigalpa",
+  "Medellin",
+  "Bogota",
+  "Shanghai",
+  "Moscow",
+  "Toronto",
+  "Madrid",
+  "Berlin",
+  "Washington",
+  "Tokyo",
+  "Paris",
+  "New York City",
+];
 
 const ReminderDialog = ({
   open,
@@ -35,8 +51,18 @@ const ReminderDialog = ({
 
   const [date, setDate] = React.useState(initialDate.toDate());
   const [description, setDescription] = React.useState(predefinedDescription);
-  const [city, setCity] = React.useState(predefinedCity);
+  const [city, setCity] = React.useState(predefinedCity || cities[0]);
   const [color, setColor] = React.useState(predefinedColor || colors[0]);
+
+  React.useEffect(() => {
+    if (open) {
+      weatherByCityName(city);
+    }
+  }, [open, city]);
+
+  const weatherByCityName = async (cityToForecast) => {
+    await fetchForecastByCityName(cityToForecast);
+  };
 
   const handleDatePickerChange = (date) => {
     setDate(date);
@@ -54,10 +80,7 @@ const ReminderDialog = ({
   const handleCityChange = (e) => {
     e.preventDefault();
     const text = e.target.value;
-
-    if (text.length <= 10) {
-      setCity(text);
-    }
+    setCity(text);
   };
 
   const handleActionButtonClick = () => {
@@ -87,8 +110,7 @@ const ReminderDialog = ({
       <DialogTitle id="form-dialog-title">Create a new reminder</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Remember description field will only allow 30 characters max and city
-          only 15 characters max.
+          Remember description field can only have a maximum of 30 characters.
         </DialogContentText>
         <TextField
           defaultValue={predefinedDescription}
@@ -102,39 +124,35 @@ const ReminderDialog = ({
           onChange={handleDescriptionChange}
           autoComplete="off"
         />
-        <TextField
-          defaultValue={predefinedCity}
-          margin="dense"
-          id="city"
-          label="City"
-          type="email"
-          fullWidth
-          inputProps={{ maxLength: 15 }}
-          onChange={handleCityChange}
-          autoComplete="off"
-        />
         <Grid container className={classes.gridContainer}>
-          <Grid item xs={2}>
-            <Typography>Pick a date</Typography>
+          <Grid item xs={4}>
+            <FormControl className={classes.formControl}>
+              <InputLabel id="city-input-label">City</InputLabel>
+              <Select
+                labelId="city-simple-select-label"
+                id="city-simple-select"
+                value={city}
+                onChange={handleCityChange}
+              >
+                {cities.map((cityOption) => (
+                  <MenuItem key={cityOption} value={cityOption}>
+                    {cityOption}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={4}>
-            <DatePicker
-              selected={date}
-              onChange={handleDatePickerChange}
-              showTimeSelect
-            />
-          </Grid>
-          <Grid item xs={12}>
             <FormControl className={classes.formControl}>
               <InputLabel
-                id="calendar-input-label"
+                id="color-input-label"
                 className={classes[`${color}MenuItem`]}
               >
                 Color
               </InputLabel>
               <Select
-                labelId="demo-simple-select-label"
-                id="calendar-simple-select"
+                labelId="color-simple-select-label"
+                id="color-simple-select"
                 value={color}
                 onChange={handleChangeColor}
               >
@@ -149,6 +167,33 @@ const ReminderDialog = ({
                 ))}
               </Select>
             </FormControl>
+          </Grid>
+        </Grid>
+        <Grid container className={classes.gridContainer}>
+          <Grid item xs={3}>
+            <Typography>Pick a date:</Typography>
+            <DatePicker
+              selected={date}
+              onChange={handleDatePickerChange}
+              showTimeSelect
+            />
+          </Grid>
+          <Grid container item xs={9}>
+            <Grid item xs={12}>
+              <Typography>Weather in {city}</Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="caption">Skies:</Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="caption">Max temperature: </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="caption">Min temperature: </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="caption">Feels like:</Typography>
+            </Grid>
           </Grid>
         </Grid>
       </DialogContent>
@@ -180,10 +225,10 @@ const ReminderDialog = ({
 
 const useStyles = makeStyles((theme) => ({
   datePickerGrid: {
-    marginTop: "-2px",
+    marginTop: "1px",
   },
   gridContainer: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
   },
   formControl: {
     margin: theme.spacing(1),

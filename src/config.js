@@ -14,15 +14,16 @@ const baseConfig = {
   FIREBASE_PROJECTID: "expens-9353e",
   FIREBASE_STORAGE_BUCKET: "expens-9353e.appspot.com",
   FIREBASE_MESSAGE_SENDERID: "346046868999",
-  FIREBASE_APP_ID: "1:346046868999:web:192ffd128363c96b32c4a2"
+  FIREBASE_APP_ID: "1:346046868999:web:192ffd128363c96b32c4a2",
+  OPEN_WEATHER_API_KEY: "4fa717377e36234e8687c91466405c9e",
 };
 const configPresets = {
   production: {
-    ...baseConfig
+    ...baseConfig,
   },
   development: {
-    ...baseConfig
-  }
+    ...baseConfig,
+  },
 };
 
 if (!process.env.NODE_ENV)
