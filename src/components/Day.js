@@ -13,14 +13,16 @@ import { useDispatch } from "calendarReduxHooks";
 import { startAddReminder, startDeleteReminder } from "Actions/index";
 import moment from "moment";
 import Tooltip from "@material-ui/core/Tooltip";
+import DeleteDialog from "./DeleteDialog";
 
 const Day = ({ day, select, selected, reminders }) => {
   const { date, isCurrentMonth, isToday, number } = day;
-  // console.log(reminders, "reminders");
+
   const classes = useStyles();
   const dispatch = useDispatch();
 
   const [open, setOpen] = React.useState(false);
+  const [openDelete, setOpenDelete] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -28,6 +30,14 @@ const Day = ({ day, select, selected, reminders }) => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleCloseDelete = () => {
+    setOpenDelete(false);
+  };
+
+  const handleClickOpenDelete = () => {
+    setOpenDelete(true);
   };
 
   const saveReminder = async (reminder) => {
@@ -41,6 +51,7 @@ const Day = ({ day, select, selected, reminders }) => {
 
   const deleteAllRemindersForCurrentDate = async () => {
     try {
+      handleCloseDelete();
       const remindersToDelete = filterRemindersForCurrentDate();
       remindersToDelete.reverse();
 
@@ -110,7 +121,7 @@ const Day = ({ day, select, selected, reminders }) => {
                   aria-label="add-reminder"
                   size="small"
                   className={classes.addButton}
-                  onClick={deleteAllRemindersForCurrentDate}
+                  onClick={handleClickOpenDelete}
                 >
                   <RemoveCircleIcon />
                 </IconButton>
@@ -142,6 +153,11 @@ const Day = ({ day, select, selected, reminders }) => {
         initialDate={date.clone()}
         closeButtonLabel="CANCEL"
         actionButtonLabel="SAVE"
+      />
+      <DeleteDialog
+        open={openDelete}
+        handleClose={handleCloseDelete}
+        handleYesClick={deleteAllRemindersForCurrentDate}
       />
     </>
   );
