@@ -3,6 +3,11 @@
 exports[`<ReminderDialog/> Should match ReminderDialog snapshot 1`] = `
 <WithStyles(ForwardRef(Dialog))
   aria-labelledby="form-dialog-title"
+  classes={
+    Object {
+      "paper": "makeStyles-dialogPaper-7",
+    }
+  }
   onClose={[MockFunction]}
   open={true}
 >
@@ -187,7 +192,7 @@ exports[`<ReminderDialog/> Should match ReminderDialog snapshot 1`] = `
         xs={3}
       >
         <WithStyles(ForwardRef(Typography))>
-          Pick a date:
+          Pick a date and time:
         </WithStyles(ForwardRef(Typography))>
         <t
           allowSameDay={false}
