@@ -112,7 +112,6 @@ const Calendar = () => {
             <IconButton
               onClick={previous}
               size="small"
-              color="primary"
               className={classes.actionsButton}
             >
               <NavigateBeforeIcon />
@@ -126,7 +125,6 @@ const Calendar = () => {
             <IconButton
               onClick={next}
               size="small"
-              color="primary"
               className={classes.actionsButton}
             >
               <Typography>Next</Typography>
@@ -144,6 +142,7 @@ const Calendar = () => {
 const useStyles = makeStyles((theme) => ({
   actionsButton: {
     borderRadius: "2px",
+    color: "#b39ddb",
   },
 }));
 

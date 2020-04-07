@@ -97,7 +97,6 @@ const ReminderDialog = ({
 
   const handleActionButtonClick = () => {
     if (city && description) {
-      setDescription("");
       const reminder = {
         date: date.toString(),
         description,
@@ -105,6 +104,7 @@ const ReminderDialog = ({
         color,
       };
       handleActionButton(reminder);
+      setDescription("");
     }
   };
 

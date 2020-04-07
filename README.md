@@ -21,12 +21,16 @@ video:https://share.getcloudapp.com/ApurZPlz
 
 # Additional details
 
-todays date will always have a purple color and selected date will have a bluish color and dates that do not belong to the selected month will have a light-gray look and weekend are going have a gray look .
+selected date will have a bluish color and dates that do not belong to the selected month will have a light-gray look and weekend are going have a gray look .
 
 weather details will be present on edit and add reminder dialogs
 
 I completed all the challenges and the bonuses. tests for max characters are under /tests/components/ReminderDialog
 
-# How to install dependencies and run tests
+# How run tests
 
 run the [npm test] command
+
+# How to visualize project on github an see all the commits
+
+Go to https://github.com/hanselcarter/calendar
