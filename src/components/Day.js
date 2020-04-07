@@ -66,7 +66,7 @@ const Day = ({ day, select, selected, reminders }) => {
   };
 
   const filterRemindersForCurrentDate = () => {
-    const remindersFotCurrentDate = reminders.filter((reminder) => {
+    const remindersForCurrentDate = reminders.filter((reminder) => {
       const dateObj = new Date(reminder.date);
       const reminderDate = moment(dateObj);
       const clonedDayDate = date.clone();
@@ -82,10 +82,15 @@ const Day = ({ day, select, selected, reminders }) => {
           .toString()
       );
     });
-    return remindersFotCurrentDate;
+    return remindersForCurrentDate.sort((a, b) => {
+      const dateObjA = new Date(a.date).getTime();
+      const dateObjB = new Date(b.date).getTime();
+
+      return dateObjA - dateObjB;
+    });
   };
 
-  const remindersFotThisDate = filterRemindersForCurrentDate();
+  const remindersForThisDate = filterRemindersForCurrentDate();
 
   return (
     <>
@@ -116,7 +121,7 @@ const Day = ({ day, select, selected, reminders }) => {
               <Typography>{number}</Typography>
             </Grid>
             <Grid item xs={4}>
-              {remindersFotThisDate.length > 0 ? (
+              {remindersForThisDate.length > 0 ? (
                 <Tooltip title="Delete all reminders for this date">
                   <IconButton
                     id="delete-all-reminder"
@@ -144,7 +149,7 @@ const Day = ({ day, select, selected, reminders }) => {
               </Tooltip>
             </Grid>
           </Grid>
-          {remindersFotThisDate.map((reminder) => (
+          {remindersForThisDate.map((reminder) => (
             <Reminder key={reminder.uid} reminder={reminder} />
           ))}
         </Grid>

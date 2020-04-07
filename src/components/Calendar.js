@@ -48,7 +48,6 @@ const Calendar = () => {
   };
 
   const select = (day) => {
-    console.log(day.date);
     setSelected(day.date);
   };
 
