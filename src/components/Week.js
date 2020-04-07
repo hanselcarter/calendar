@@ -17,7 +17,7 @@ const Week = ({ date, month, selected, select, reminders }) => {
     };
 
     days.push(
-      <Grid container item xs={1} key={`${day.number}${i}`}>
+      <Grid container item md={1} xs={12} key={`${day.number}${i}`}>
         <Day
           key={`${day.number}${i}`}
           day={day}

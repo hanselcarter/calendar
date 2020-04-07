@@ -183,7 +183,7 @@ const ReminderDialog = ({
           </Grid>
         </Grid>
         <Grid container className={classes.gridContainer}>
-          <Grid item xs={3}>
+          <Grid item xs={4}>
             <Typography>Pick a date and time:</Typography>
             <DatePicker
               selected={date}
@@ -191,7 +191,7 @@ const ReminderDialog = ({
               showTimeSelect
             />
           </Grid>
-          <Grid container item xs={9}>
+          <Grid container item xs={8}>
             <Grid item xs={12}>
               <Typography>Weather in {city}</Typography>
             </Grid>

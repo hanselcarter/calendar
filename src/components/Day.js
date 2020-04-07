@@ -170,14 +170,14 @@ const useStyles = makeStyles(() => ({
     padding: "11px",
     height: "80px",
     width: "100%",
-    overflowY: "scroll",
+    overflowY: "auto",
     backgroundColor: "#e0e0e0",
   },
   boxToday: {
     padding: "11px",
     height: "80px",
     width: "100%",
-    overflowY: "scroll",
+    overflowY: "auto",
     backgroundColor: "#ede7f6",
   },
   boxMonth: {
@@ -185,13 +185,13 @@ const useStyles = makeStyles(() => ({
     alignSelf: "stretch",
     height: "80px",
     width: "100%",
-    overflowY: "scroll",
+    overflowY: "auto",
   },
   boxSelected: {
     padding: "11px",
     height: "80px",
     width: "100%",
-    overflowY: "scroll",
+    overflowY: "auto",
     backgroundColor: "#e3f2fd",
   },
   addButton: {
