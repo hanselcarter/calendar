@@ -52,7 +52,22 @@ const Day = ({ day, select, selected, reminders }) => {
   const deleteAllRemindersForCurrentDate = async () => {
     try {
       handleCloseDelete();
-      const remindersToDelete = filterRemindersForCurrentDate();
+      const remindersToDelete = reminders.filter((reminder) => {
+        const dateObj = new Date(reminder.date);
+        const reminderDate = moment(dateObj);
+        const clonedDayDate = date.clone();
+
+        return (
+          reminderDate
+            .startOf("day")
+            .toDate()
+            .toString() ==
+          clonedDayDate
+            .startOf("day")
+            .toDate()
+            .toString()
+        );
+      });
       remindersToDelete.reverse();
 
       await Promise.all(
@@ -65,7 +80,7 @@ const Day = ({ day, select, selected, reminders }) => {
     }
   };
 
-  const filterRemindersForCurrentDate = () => {
+  const filterRemindersForCurrentDateSorted = () => {
     const remindersForCurrentDate = reminders.filter((reminder) => {
       const dateObj = new Date(reminder.date);
       const reminderDate = moment(dateObj);
@@ -90,7 +105,7 @@ const Day = ({ day, select, selected, reminders }) => {
     });
   };
 
-  const remindersForThisDate = filterRemindersForCurrentDate();
+  const remindersForThisDate = filterRemindersForCurrentDateSorted();
 
   return (
     <>
