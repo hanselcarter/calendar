@@ -2,12 +2,16 @@ import React from "react";
 import moment from "moment";
 import DaysHeader from "./DaysHeader";
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
 import Month from "./Month";
 import Week from "./Week";
 import { startSetReminders } from "Actions/index";
 import { useDispatch, useSelector } from "calendarReduxHooks";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { makeStyles } from "@material-ui/core/styles";
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import Typography from "@material-ui/core/Typography";
+import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 
 const initialState = {
   month: moment(),
@@ -21,6 +25,7 @@ const Calendar = () => {
     (state) => state.remindersReducer
   );
   const dispatch = useDispatch();
+  const classes = useStyles();
 
   React.useEffect(() => {
     fetchReminders();
@@ -95,15 +100,38 @@ const Calendar = () => {
   return (
     <div>
       <div>
-        <Grid container alignItems="center" alignContent="center">
-          <Grid item xs={3} container>
-            <Button onClick={previous}>Previous</Button>
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          spacing={10}
+          className={classes.actionsGrid}
+        >
+          <Grid item>
+            <IconButton
+              onClick={previous}
+              size="small"
+              color="primary"
+              className={classes.actionsButton}
+            >
+              <NavigateBeforeIcon />
+              <Typography> Previous</Typography>
+            </IconButton>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item>
             <Month month={month} />
           </Grid>
-          <Grid item xs={3}>
-            <Button onClick={next}>Next</Button>
+          <Grid item>
+            <IconButton
+              onClick={next}
+              size="small"
+              color="primary"
+              className={classes.actionsButton}
+            >
+              <Typography>Next</Typography>
+              <NavigateNextIcon />
+            </IconButton>
           </Grid>
         </Grid>
         <DaysHeader />
@@ -112,5 +140,11 @@ const Calendar = () => {
     </div>
   );
 };
+
+const useStyles = makeStyles((theme) => ({
+  actionsButton: {
+    borderRadius: "2px",
+  },
+}));
 
 export default Calendar;

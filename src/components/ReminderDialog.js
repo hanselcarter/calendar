@@ -118,6 +118,7 @@ const ReminderDialog = ({
       open={open}
       onClose={handleClose}
       aria-labelledby="form-dialog-title"
+      classes={{ paper: classes.dialogPaper }}
     >
       <DialogTitle id="form-dialog-title">Create a new reminder</DialogTitle>
       <DialogContent>
@@ -125,7 +126,7 @@ const ReminderDialog = ({
           Remember description field can only have a maximum of 30 characters.
         </DialogContentText>
         <TextField
-          defaultValue={predefinedDescription}
+          value={description}
           autoFocus
           margin="dense"
           id="description"
@@ -183,7 +184,7 @@ const ReminderDialog = ({
         </Grid>
         <Grid container className={classes.gridContainer}>
           <Grid item xs={3}>
-            <Typography>Pick a date:</Typography>
+            <Typography>Pick a date and time:</Typography>
             <DatePicker
               selected={date}
               onChange={handleDatePickerChange}
@@ -265,6 +266,9 @@ const useStyles = makeStyles((theme) => ({
   },
   yellowMenuItem: {
     color: "#fff9c4 !important",
+  },
+  dialogPaper: {
+    minHeight: "560px",
   },
 }));
 

@@ -33,7 +33,7 @@ const Week = ({ date, month, selected, select, reminders }) => {
   }
 
   return (
-    <Grid container key={days[0]}>
+    <Grid container justify="center" key={days[0]}>
       {days}
     </Grid>
   );

@@ -13,7 +13,7 @@ const SingleDay = ({ day }) => (
 
 const DaysHeader = () => {
   return (
-    <Grid container>
+    <Grid container justify="center">
       {dayNames.map((dayName, index) => (
         <SingleDay key={`dayName${index}`} day={dayName} />
       ))}
