@@ -104,7 +104,6 @@ const ReminderDialog = ({
         color,
       };
       handleActionButton(reminder);
-      setDescription("");
     }
   };
 

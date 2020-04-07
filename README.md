@@ -17,7 +17,7 @@ To navigate through the calendar: click on the next or previous button.
 
 # Here is a quick video to show you how it works
 
-video:https://share.getcloudapp.com/ApurZPlz
+video: https://share.getcloudapp.com/qGuoQb4A
 
 # Additional details
 
