@@ -5,7 +5,9 @@ import Grid from "@material-ui/core/Grid";
 
 const Month = ({ month }) => (
   <Grid container item xs={12}>
-    <Typography align="center">{month.format("MMMM YYYY")}</Typography>
+    <Typography align="center" color="primary">
+      {month.format("MMMM YYYY")}
+    </Typography>
   </Grid>
 );
 
