@@ -15,9 +15,13 @@ To start editing or deleting a single reminder: click on the the reminder and mo
 To delete all reminder for an specific date: click on the (-) icon that is inside dates boxes, a modal will show up so you can confirm the deletions.
 To navigate through the calendar: click on the next or previous button.
 
+# Here is a quick video to show you how it works
+
+video:https://share.getcloudapp.com/ApurZPlz
+
 # Additional details
 
-todays date will always have a purple color and selected date will have a bluish color and dates that do not belong to the selected month will have a gray look .
+todays date will always have a purple color and selected date will have a bluish color and dates that do not belong to the selected month will have a light-gray look and weekend are going have a gray look .
 
 weather details will be present on edit and add reminder dialogs
 

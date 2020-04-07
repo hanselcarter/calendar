@@ -101,8 +101,9 @@ const Day = ({ day, select, selected, reminders }) => {
         className={
           date.isSame(selected)
             ? classes.boxSelected
-            : isToday
-            ? classes.boxToday
+            : date.clone().format("dddd") == "Saturday" ||
+              date.clone().format("dddd") == "Sunday"
+            ? classes.boxWeekend
             : isCurrentMonth
             ? classes.boxMonth
             : classes.box
@@ -171,14 +172,14 @@ const useStyles = makeStyles(() => ({
     height: "80px",
     width: "100%",
     overflowY: "auto",
-    backgroundColor: "#e0e0e0",
+    backgroundColor: "#eeeeee",
   },
-  boxToday: {
+  boxWeekend: {
     padding: "11px",
     height: "80px",
     width: "100%",
     overflowY: "auto",
-    backgroundColor: "#ede7f6",
+    backgroundColor: "#e0e0e0",
   },
   boxMonth: {
     padding: "11px",
