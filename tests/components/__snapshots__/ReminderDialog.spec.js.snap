@@ -189,7 +189,7 @@ exports[`<ReminderDialog/> Should match ReminderDialog snapshot 1`] = `
     >
       <WithStyles(ForwardRef(Grid))
         item={true}
-        xs={3}
+        xs={4}
       >
         <WithStyles(ForwardRef(Typography))>
           Pick a date and time:
@@ -243,7 +243,7 @@ exports[`<ReminderDialog/> Should match ReminderDialog snapshot 1`] = `
       <WithStyles(ForwardRef(Grid))
         container={true}
         item={true}
-        xs={9}
+        xs={8}
       >
         <WithStyles(ForwardRef(Grid))
           item={true}
