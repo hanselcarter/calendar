@@ -12,12 +12,14 @@ jest.mock("../../src/services/forecast", () => ({
   }),
 }));
 
+const saveMock = jest.fn();
+
 describe("<ReminderDialog/>", () => {
   let componentWrapper;
   const initialProps = {
     open: true,
     handleClose: jest.fn(),
-    handleActionButton: jest.fn(),
+    handleActionButton: saveMock,
     initialDate: {
       toDate: jest.fn().mockReturnValue("some date"),
     },
@@ -58,20 +60,47 @@ describe("<ReminderDialog/>", () => {
     });
 
     describe("And Text field  values has less than 30 characters ", () => {
-      test("Text field value should change", () => {
-        const shortDescription = "lorem ipsum ";
-        const descriptionTextField = componentWrapper.find("#description");
+      const shortDescription = "lorem ipsum ";
 
+      beforeEach(() => {
+        const descriptionTextField = componentWrapper.find("#description");
         descriptionTextField.simulate("change", {
           preventDefault: jest.fn(),
           target: {
             value: shortDescription,
           },
         });
-
+      });
+      test("Text field value should change", () => {
         expect(componentWrapper.find("#description").prop("value")).toBe(
           shortDescription
         );
+      });
+
+      describe("And action button gets clicked", () => {
+        it("Should start saving the reminder", () => {
+          const description = componentWrapper
+            .find("#description")
+            .prop("value");
+          const city = componentWrapper
+            .find("#city-simple-select")
+            .prop("value");
+          const color = componentWrapper
+            .find("#color-simple-select")
+            .prop("value");
+
+          const actionButton = componentWrapper.find("#action-button");
+          actionButton.simulate("click");
+
+          const reminder = {
+            date: initialProps.initialDate.toDate(),
+            description,
+            city,
+            color,
+          };
+
+          expect(saveMock).toBeCalledWith(reminder);
+        });
       });
     });
   });
