@@ -15,9 +15,6 @@ having fun with react
 - To delete all reminder for an specific date: click on the (-) icon that is inside dates boxes, a modal will show up so you can confirm the deletions.
 - To navigate through the calendar: click on the next or previous button.
 
-# Here is a quick video to show you how it works
-
-video: https://share.getcloudapp.com/qGuoQb4A
 
 # Additional details
 
@@ -31,6 +28,4 @@ video: https://share.getcloudapp.com/qGuoQb4A
 
 run the [npm test] command
 
-# How to visualize project on github an see all the commits
 
-Go to https://github.com/hanselcarter/calendar
